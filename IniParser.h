@@ -23,7 +23,7 @@ public:
     bool isHaveParam (const string &sec_name, const string& param_name);
 
     template<typename T>
-    T GetValue(const string &section_name, const string &param_name)
+    T GetValue(const string &sectionName, const string &paramName)
     throw (SectionNotFound, ParamNotFound) ;
 
 
@@ -32,7 +32,7 @@ private:
     enum myType {STRING = 0, INT = 1, DOUBLE = 2 };
     map <string, map <string, pair < string, myType >>> mySections;
     string varName, varValue, sectionName;
-    void searchSec (string s, int openIndex , int closeIndex);
+    void searchSec (const string &s, int openIndex , int closeIndex);
     void searchVarName (string s, int equalIndex);
     void searchVarValue (string s, int equalIndex);
     myType getType (string myS);

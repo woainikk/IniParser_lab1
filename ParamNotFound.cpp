@@ -1,11 +1,12 @@
 //
-// Created by Маргарита on 19.09.2017.
+// Created by Маргарита on 01.10.2017.
 //
-#include <string>
-#include <iostream>
-#include "ParamNotFound.h"
-using namespace std;
 
-ParamNotFound::ParamNotFound(const string &p) {
-    cout << "Can not find parameter " << p << endl;
+#include "ParamNotFound.h"
+
+ParamNotFound::ParamNotFound(const char*  param) {
+    incorrectParam = param;
+}
+const char* ParamNotFound::what()  const noexcept {
+    return incorrectParam;
 }

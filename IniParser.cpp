@@ -8,7 +8,6 @@
 #include <map>
 #include <string>
 #include <stdio.h>
-#include <stdlib.h>
 #include "SectionNotFound.h"
 #include "ParamNotFound.h"
 
@@ -21,7 +20,7 @@ IniParser::IniParser(const string &f) {
 }
 
 
-void IniParser::searchSec(string s, int openIndex, int closeIndex) {
+void IniParser::searchSec(const string &s, int openIndex, int closeIndex) {
     int i = 0;
     while (i < openIndex) {
         if (s[i] == ' ') {
@@ -38,13 +37,13 @@ void IniParser::searchSec(string s, int openIndex, int closeIndex) {
 }
 
 
-bool IniParser::isHaveASec(const string &sec_name) {
-    return mySections.find(sec_name) != mySections.end();
+bool IniParser::isHaveASec(const string &secName) {
+    return mySections.find(secName) != mySections.end();
 }
 
-bool IniParser::isHaveParam(const string &sec_name, const string &param_name) {
+bool IniParser::isHaveParam(const string &secName, const string &paramName) {
 
-    return mySections.at(sec_name).count(param_name) == 1;
+    return mySections.at(secName).count(paramName) == 1;
 }
 
 
@@ -79,18 +78,18 @@ void IniParser::searchVarValue(string s, int equalIndex) {
 
 IniParser::myType IniParser::getType(string myS) {
     int dotCount = 0;
-    int numcount = 0;
+    int numCount = 0;
     for (int i = 0; i < myS.size(); i++) {
         if (myS[i] == '.' && i != 0 && i != myS.size() - 1) {
             dotCount++;
         }
         if (myS[i] >= '0' && myS[i] <= '9') {
-            numcount++;
+            numCount++;
         }
     }
-    if (myS.size() == numcount) {
+    if (myS.size() == numCount) {
         return INT;
-    } else if (myS.size() - 1 == numcount && dotCount == 1) {
+    } else if (myS.size() - 1 == numCount && dotCount == 1) {
         return DOUBLE;
     } else {
         return STRING;
@@ -148,40 +147,40 @@ void IniParser::readFile() {
 }
 
 template<>
-string IniParser::GetValue<string>(const string &section_name, const string &param_name)
+string IniParser::GetValue<string>(const string &sectionName, const string &paramName)
 throw(SectionNotFound, ParamNotFound) {
-    if (!isHaveASec(section_name)) {
-        throw SectionNotFound(section_name);
-    } else if (!isHaveParam(section_name, param_name)) {
-        throw ParamNotFound(param_name);
+    if (!isHaveASec(sectionName)) {
+        throw SectionNotFound(sectionName.c_str());
+    } else if (!isHaveParam(sectionName, paramName)) {
+        throw ParamNotFound(paramName.c_str());
     }
-    return mySections[section_name][param_name].first;
+    return mySections[sectionName][paramName].first;
 }
 
 
 template<>
-int IniParser::GetValue<int>(const string &section_name, const string &param_name)
+int IniParser::GetValue<int>(const string &sectionName, const string &paramName)
 throw(SectionNotFound, ParamNotFound) {
-    if (!isHaveASec(section_name)) {
-        throw SectionNotFound(section_name);
-    } else if (!isHaveParam(section_name, param_name)) {
-        throw ParamNotFound(param_name);
+    if (!isHaveASec(sectionName)) {
+        throw SectionNotFound(sectionName.c_str());
+    } else if (!isHaveParam(sectionName, paramName)) {
+        throw ParamNotFound(paramName.c_str());
 
     }
 
-    return stoi(mySections[section_name][param_name].first);
+    return stoi(mySections[sectionName][paramName].first);
 }
 
 
 template<>
-double IniParser::GetValue<double>(const string &section_name, const string &param_name)
+double IniParser::GetValue<double>(const string &sectionName, const string &paramName)
 throw(SectionNotFound, ParamNotFound) {
-    if (!isHaveASec(section_name)) {
-        throw SectionNotFound(section_name);
-    } else if (!isHaveParam(section_name, param_name)) {
-        throw ParamNotFound(param_name);
+    if (!isHaveASec(sectionName)) {
+        throw SectionNotFound(sectionName.c_str());
+    } else if (!isHaveParam(sectionName, paramName)) {
+        throw ParamNotFound(paramName.c_str());
 
     }
-    return stod(mySections[section_name][param_name].first);
+    return stod(mySections[sectionName][paramName].first);
 }
 

@@ -1,12 +1,13 @@
 //
-// Created by Маргарита on 19.09.2017.
+// Created by Маргарита on 01.10.2017.
 //
 
-#include <string>
-#include <iostream>
 #include "SectionNotFound.h"
-using namespace std;
 
-SectionNotFound::SectionNotFound(const string &s) {
-    cout << "Can not find section " << s << endl;
+SectionNotFound::SectionNotFound(const char* section) {
+    incorrectSection = section;
+}
+
+const char* SectionNotFound::what() const noexcept {
+    return incorrectSection;
 }
