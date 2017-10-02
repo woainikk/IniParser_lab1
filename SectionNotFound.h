@@ -2,20 +2,16 @@
 // Created by Маргарита on 12.09.2017.
 //
 
-#ifndef LAB100P_INITIALIZEEXCEPTION_H
-#define LAB100P_INITIALIZEEXCEPTION_H
+#pragma once
 
 #include <iostream>
 
-using namespace std;
 
-class SectionNotFound : exception {
+
+class SectionNotFound : public std::runtime_error {
 public:
-    SectionNotFound(const char* section);
-    const char *what() const noexcept;
-private:
-    const char* incorrectSection;
+    explicit SectionNotFound(const std::string &section)  : std::runtime_error("Section " + section+ " does not found") {}
 };
 
 
-#endif //LAB100P_INITIALIZEEXCEPTION_H
+

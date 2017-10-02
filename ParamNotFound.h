@@ -2,23 +2,15 @@
 // Created by Маргарита on 12.09.2017.
 //
 
-#ifndef LAB100P_PARAMNOTFOUND_H
-#define LAB100P_PARAMNOTFOUND_H
+#pragma once
 
 #include <string>
 #include <iostream>
-#include "ParamNotFound.h"
 
-using namespace std;
 
-class ParamNotFound : exception {
+class ParamNotFound : public std::runtime_error {
 public:
-    ParamNotFound(const char* param);
-
-    const char *what() const noexcept;
-private:
-    const char* incorrectParam;
+    explicit ParamNotFound(const std::string &param)  : std::runtime_error("Parameter " + param + " does not found") {}
 };
 
 
-#endif //LAB100P_PARAMNOTFOUND_H

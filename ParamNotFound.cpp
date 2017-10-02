@@ -4,9 +4,5 @@
 
 #include "ParamNotFound.h"
 
-ParamNotFound::ParamNotFound(const char*  param) {
-    incorrectParam = param;
-}
-const char* ParamNotFound::what()  const noexcept {
-    return incorrectParam;
-}
+
+

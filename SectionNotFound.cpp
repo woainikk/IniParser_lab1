@@ -4,10 +4,3 @@
 
 #include "SectionNotFound.h"
 
-SectionNotFound::SectionNotFound(const char* section) {
-    incorrectSection = section;
-}
-
-const char* SectionNotFound::what() const noexcept {
-    return incorrectSection;
-}

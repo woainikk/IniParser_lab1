@@ -14,19 +14,19 @@
 
 IniParser::IniParser() {}
 
-IniParser::IniParser(const string &f) {
+IniParser::IniParser(const std::string &f) {
     fileName = f;
     IniParser::readFile();
 }
 
 
-void IniParser::searchSec(const string &s, int openIndex, int closeIndex) {
+void IniParser::searchSec(const std::string &s, int openIndex, int closeIndex) {
     int i = 0;
     while (i < openIndex) {
         if (s[i] == ' ') {
             i++;
         } else {
-            throw runtime_error("Incorrect file syntax.");
+            throw std::runtime_error("Incorrect file syntax.");
         }
     }
 
@@ -37,17 +37,17 @@ void IniParser::searchSec(const string &s, int openIndex, int closeIndex) {
 }
 
 
-bool IniParser::isHaveASec(const string &secName) {
+bool IniParser::isHaveASec(const std::string &secName) {
     return mySections.find(secName) != mySections.end();
 }
 
-bool IniParser::isHaveParam(const string &secName, const string &paramName) {
+bool IniParser::isHaveParam(const std::string &secName, const std::string &paramName) {
 
     return mySections.at(secName).count(paramName) == 1;
 }
 
 
-void IniParser::searchVarName(string s, int equalIndex) {
+void IniParser::searchVarName(std::string s, int equalIndex) {
     int p = 0;
     varName = "";
     while (p < equalIndex && s[p] == ' ') {
@@ -62,7 +62,7 @@ void IniParser::searchVarName(string s, int equalIndex) {
 }
 
 
-void IniParser::searchVarValue(string s, int equalIndex) {
+void IniParser::searchVarValue(std::string s, int equalIndex) {
     int p = equalIndex + 1;
     varValue = "";
     while (p < s.size() && s[p] == ' ') {
@@ -76,7 +76,7 @@ void IniParser::searchVarValue(string s, int equalIndex) {
 }
 
 
-IniParser::myType IniParser::getType(string myS) {
+IniParser::myType IniParser::getType(std::string myS) {
     int dotCount = 0;
     int numCount = 0;
     for (int i = 0; i < myS.size(); i++) {
@@ -99,22 +99,22 @@ IniParser::myType IniParser::getType(string myS) {
 
 void IniParser::printMap() {
     for (auto it : mySections) {
-        cout << it.first << ": " << endl;
-        map<string, pair<string, myType >> &myInnerMap = it.second;
+        std::cout << it.first << ": " <<std::endl;
+        std::map<std::string, std::pair<std::string, myType >> &myInnerMap = it.second;
         for (auto it2: myInnerMap) {
-            cout << it2.first << " = " << it2.second.first << ". Type:"
-                 << it2.second.second << endl;
+            std::cout << it2.first << " = " << it2.second.first << ". Type:"
+                 << it2.second.second << std::endl;
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 }
 
 void IniParser::readFile() {
 
-    string s;
-    ifstream file(fileName);
+    std::string s;
+    std::ifstream file(fileName);
     if (!file.good()) {
-        throw runtime_error("This file does not exist.");
+        throw std::runtime_error("This file does not exist.");
     }
 
 
@@ -135,7 +135,7 @@ void IniParser::readFile() {
             if (equalIndex != -1) {
                 searchVarName(s, equalIndex);
                 searchVarValue(s, equalIndex);
-                mySections[sectionName][varName] = pair<string, myType>(varValue, getType(varValue));
+                mySections[sectionName][varName] = std::pair<std::string, myType>(varValue, getType(varValue));
 
             }
         } else {
@@ -147,7 +147,7 @@ void IniParser::readFile() {
 }
 
 template<>
-string IniParser::GetValue<string>(const string &sectionName, const string &paramName)
+std::string IniParser::GetValue<std::string>(const std::string &sectionName, const std::string &paramName)
 throw(SectionNotFound, ParamNotFound) {
     if (!isHaveASec(sectionName)) {
         throw SectionNotFound(sectionName.c_str());
@@ -159,7 +159,7 @@ throw(SectionNotFound, ParamNotFound) {
 
 
 template<>
-int IniParser::GetValue<int>(const string &sectionName, const string &paramName)
+int IniParser::GetValue<int>(const std::string &sectionName, const std::string &paramName)
 throw(SectionNotFound, ParamNotFound) {
     if (!isHaveASec(sectionName)) {
         throw SectionNotFound(sectionName.c_str());
@@ -173,7 +173,7 @@ throw(SectionNotFound, ParamNotFound) {
 
 
 template<>
-double IniParser::GetValue<double>(const string &sectionName, const string &paramName)
+double IniParser::GetValue<double>(const std::string &sectionName, const std::string &paramName)
 throw(SectionNotFound, ParamNotFound) {
     if (!isHaveASec(sectionName)) {
         throw SectionNotFound(sectionName.c_str());
