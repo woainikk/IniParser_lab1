@@ -38,11 +38,13 @@ void IniParser::removeSpaces(std::string &s) {
     }
 }
 
-bool IniParser::isHaveASec(const std::string &secName) {
+bool IniParser::isHaveASec(const std::string &secName) const
+throw(SectionNotFound){
     return mySections.find(secName) != mySections.end();
 }
 
-bool IniParser::isHaveParam(const std::string &secName, const std::string &paramName) {
+bool IniParser::isHaveParam(const std::string &secName, const std::string &paramName) const
+throw(ParamNotFound) {
     return mySections.at(secName).count(paramName) == 1;
 }
 
@@ -136,7 +138,7 @@ void IniParser::readFile() {
 }
 
 template<>
-std::string IniParser::GetValue<std::string>(const std::string &sectionName, const std::string &paramName)
+std::string IniParser::GetValue<std::string>( std::string &sectionName,  std::string &paramName) const
 throw(SectionNotFound, ParamNotFound) {
     if (!isHaveASec(sectionName)) {
         throw SectionNotFound(sectionName.c_str());
@@ -148,7 +150,7 @@ throw(SectionNotFound, ParamNotFound) {
 
 
 template<>
-int IniParser::GetValue<int>(const std::string &sectionName, const std::string &paramName)
+int IniParser::GetValue<int>( std::string &sectionName,  std::string &paramName) const
 throw(SectionNotFound, ParamNotFound) {
     if (!isHaveASec(sectionName)) {
         throw SectionNotFound(sectionName.c_str());
@@ -160,7 +162,7 @@ throw(SectionNotFound, ParamNotFound) {
 
 
 template<>
-double IniParser::GetValue<double>(const std::string &sectionName, const std::string &paramName)
+double IniParser::GetValue<double>( std::string &sectionName,  std::string &paramName) const
 throw(SectionNotFound, ParamNotFound) {
     if (!isHaveASec(sectionName)) {
         throw SectionNotFound(sectionName.c_str());
