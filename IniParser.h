@@ -22,15 +22,16 @@ public:
     throw (SectionNotFound, ParamNotFound) ;
 
 
-
 private:
-    enum myType {STRING = 0, INT = 1, DOUBLE = 2 };
-    std::map <std::string, std::map <std::string, std::pair < std::string, myType >>> mySections;
+    enum typesOfValues {STRING = 0, INT = 1, DOUBLE = 2 };
+    std::map <std::string, std::map <std::string, std::pair < std::string, typesOfValues >>> mySections;
     std::string varName, varValue, sectionName;
     void searchSec (const std::string &s, int openIndex , int closeIndex);
     void searchVarName (std::string s, int equalIndex);
     void searchVarValue (std::string s, int equalIndex);
-    myType getType (std::string myS);
+    void removeSpaces(std::string &s);
+    void removeComments (std::string &s);
+    typesOfValues getTypeOfValue(std::string myS);
     void readFile();
 
 

@@ -7,6 +7,7 @@
 using namespace std;
 
 int main() {
+
     try {
         string file_name;
         cin >> file_name;
