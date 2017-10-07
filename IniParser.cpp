@@ -38,13 +38,11 @@ void IniParser::removeSpaces(std::string &s) {
     }
 }
 
-bool IniParser::isHaveASec(const std::string &secName) const
-throw(SectionNotFound){
+bool IniParser::isHaveASec(const std::string &secName) const{
     return mySections.find(secName) != mySections.end();
 }
 
-bool IniParser::isHaveParam(const std::string &secName, const std::string &paramName) const
-throw(ParamNotFound) {
+bool IniParser::isHaveParam(const std::string &secName, const std::string &paramName) const{
     return mySections.at(secName).count(paramName) == 1;
 }
 
