@@ -32,7 +32,7 @@ private:
     void searchVarValue (std::string s, int equalIndex);
     void removeSpaces(std::string &s);
     void removeComments (std::string &s);
-    typesOfValues getTypeOfValue(std::string s);
+    typesOfValues getTypeOfValue(std::string &s);
     void readFile();
 
 
