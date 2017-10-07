@@ -14,10 +14,8 @@ public:
     IniParser( const std::string& f);
     IniParser();
     void printMap();
-    bool isHaveASec(const std::string& sec_name ) const
-    throw(SectionNotFound);
-    bool isHaveParam (const std::string &sec_name, const std::string& param_name) const
-    throw(ParamNotFound);
+    bool isHaveASec(const std::string& sec_name ) const;
+    bool isHaveParam (const std::string &sec_name, const std::string& param_name) const;
     template<typename T>
     T GetValue ( std::string &sectionName,  std::string &paramName) const
     throw (SectionNotFound, ParamNotFound) ;
