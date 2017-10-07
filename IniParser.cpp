@@ -68,7 +68,7 @@ void IniParser::searchVarValue(std::string s, int equalIndex) {
 }
 
 
-IniParser::typesOfValues IniParser::getTypeOfValue(std::string value) {
+IniParser::typesOfValues IniParser::getTypeOfValue(std::string &value) {
     int dotCount = 0;
     int numCount = 0;
     for (int i = 0; i < value.size(); i++) {
